@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargando Asistencia...</title>
+    <script>
+        (function() {
+            const ahora = new Date();
+            
+            // Formatear fecha: DD/MM/AAAA (ej. 21/10/2026)
+            const dia = String(ahora.getDate()).padStart(2, '0');
+            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+            const anio = ahora.getFullYear();
+            const fechaActual = `${dia}/${mes}/${anio}`;
+
+            // Formatear hora: HH:MM hrs (ej. 07:50 hrs)
+            const horas = String(ahora.getHours()).padStart(2, '0');
+            const minutos = String(ahora.getMinutes()).padStart(2, '0');
+            const horaActual = `${horas}:${minutos} hrs`;
+
+            // Plantilla exacta con saltos de línea
+            const mensaje = `*ASISTENCIA*\n\n` +
+                            `Colaborador: \n\n` +
+                            `Fecha ${fechaActual}\n` +
+                            `Hora: ${horaActual}\n\n` +
+                            `Servicio: \n\n` +
+                            `Puesto: \n\n` +
+                            `Jornada: 12x12\n\n` +
+                            `Tipo: (no se modifica )`;
+
+            const textoCodificado = encodeURIComponent(mensaje);
+
+            // Protocolo nativo para abrir la app de WhatsApp sin pasar por la web de api.whatsapp.com
+            const urlApp = `whatsapp://send?text=${textoCodificado}`;
+            const urlWeb = `https://wa.me/?text=${textoCodificado}`;
+
+            // Redirección instantánea
+            window.location.replace(urlApp);
+
+            // Respaldo automático en caso de que algún navegador requiera enlace estándar
+            window.onload = function() {
+                document.getElementById("btn-respaldo").href = urlWeb;
+            };
+        })();
+    </script>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding-top: 60px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            background-color: #25D366;
+            color: white;
+            padding: 14px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <p>Abriendo WhatsApp con la fecha y hora actual...</p>
+    <a id="btn-respaldo" class="btn" href="#">Toque aquí si no se abre automáticamente</a>
+</body>
+</html>
