@@ -250,27 +250,28 @@
             <p><span class="tag">Colaborador:</span> <span id="prev-nombre"></span></p>
             <p><span class="tag">Servicio:</span> <span id="prev-servicio"></span></p>
             <p><span class="tag">Puesto:</span> <span id="prev-puesto"></span></p>
-            <p><span class="tag">Jornada:</span> <span id="prev-jornada"></span> (<span id="prev-turno"></span>)</p>
+            <p><span class="tag">Jornada:</span> <span id="prev-jornada"></span> <!--(<span id="prev-turno"></span>)--></p>
         </div>
 
         <!-- Opciones manuales si la persona es de nuevo ingreso / vacante -->
         <div class="manual-box" id="caja-manual">
             <p>Nombre no encontrado en padrón. Confirma tus datos para continuar:</p>
             <select id="man-servicio">
-                <option value="Clínica Abies">Clínica Abies</option>
-                <option value="Supervisión">Supervisión</option>
-                <option value="Clínica Chihuahua">Clínica Chihuahua</option>
-                <option value="Clínica El Niño">Clínica El Niño</option>
-                <option value="Clínica El Ranchito">Clínica El Ranchito</option>
-                <option value="Clínica Maneadero">Clínica Maneadero</option>
-                <option value="Clínica Primo Tapia" selected>Clínica Primo Tapia</option>
-                <option value="Clínica San Quintín">Clínica San Quintín</option>
-                <option value="Clínica Mexicali">Clínica Mexicali</option>
-                <option value="UMF Mexicali 02">UMF Mexicali 02</option>
-                <option value="Clínica Delta B.C.">Clínica Delta B.C.</option>
-                <option value="Supervisión Mexicali">Supervisión Mexicali</option>
-                <option value="Clínica Estación Delta">Clínica Estación Delta</option>
-                <option value="Construcción Violeta">Construcción Violeta</option>
+                <option value="OFICINAS ABIES">OFICINAS ABIES</option>
+                <option value="SUPERVISIÓN">SUPERVISIÓN</option>
+                <option value="CLÍNICA CHIHUAHUA">CLÍNICA CHIHUAHUA</option>
+                <option value="CLÍNICA EL NIÑO">CLÍNICA EL NIÑO</option>
+                <option value="CLÍNICA EL RANCHITO">CLÍNICA EL RANCHITO</option>
+                <option value="CLÍNICA MANEADERO">CLÍNICA MANEADERO</option>
+                <option value="CLÍNICA PRIMO TAPIA" selected>CLÍNICA PRIMO TAPIA</option>
+                <option value="CLÍNICA SAN QUINTÍN">CLÍNICA SAN QUINTÍN</option>
+                <option value="CLÍNICA MEXICALI">CLÍNICA MEXICALI</option>
+                <option value="BENITO JUÁREZ">BENITO JUÁREZ</option>
+                <option value="CLÍNICA DELTA B.C.">CLÍNICA DELTA B.C.</option>
+                <option value="SUPERVISIÓN MEXICALI">SUPERVISIÓN MEXICALI</option>
+                <option value="CLÍNICA ESTACIÓN DELTA">CLÍNICA ESTACIÓN DELTA</option>
+                <option value="CONSTRUCCIÓN VIOLETA">CONSTRUCCIÓN VIOLETA</option>
+                <option value="SUPERVISOR MEXICALI">SUPERVISOR MEXICALI</option>
             </select>
             <select id="man-puesto">
                 <option value="ACCESO PRINCIPAL" selected>ACCESO PRINCIPAL</option>
@@ -296,39 +297,41 @@
 <script>
     // Padrón oficial extraído del Excel
     const PERSONAL = [
-        { nombre: "ALMA LIDIA GRANDE", servicio: "Clínica Abies", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "MARIA NATIVIDAD SANCHEZ JIMENEZ", servicio: "Clínica Abies", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "WILFRIDO ANTONIO MALDONADO MEDINA", servicio: "Supervisión", puesto: "SUPERVISOR", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "GUADALUPE MALDONADO RODRIGUEZ", servicio: "Clínica Chihuahua", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "KENIA SANDOVAL GONZÁLEZ", servicio: "Clínica Chihuahua", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "ANA LAURA PACHECO VELÁZQUEZ", servicio: "Clínica El Niño", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "LILIANA ELIDETH ROBLERO GAMBOA", servicio: "Clínica el niño", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "CLAUDIA DEL CARMEN GONZALEZ LOPEZ", servicio: "Clínica El Ranchito", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "JAZZIRI ESMERALDA GUZMÁN HERRERA", servicio: "Clínica El Ranchito", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "FABIOLA PUGA MALDONADO", servicio: "Clínica Maneadero", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
-        { nombre: "MARIA GUADALUPE MARTÍNEZ BEDOLLA", servicio: "Clínica Maneadero", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "MERARI CONCEPCION GARCIA RABANALES", servicio: "Clínica Maneadero", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
-        { nombre: "NANCY YESENIA MARTINEZ BRIVIESCA", servicio: "Clínica Maneadero", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "ÁMBAR DE JESÚS REYES SANTIAGO", servicio: "Clínica Primo Tapia", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "JOSE EMMANUEL RODRIGUEZ BARRERA", servicio: "Clínica Primo Tapia", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
-        { nombre: "GRISELDA GUZMÁN AGUILAR", servicio: "Clínica San Quintín", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "KEILA ISABEL OJENDIZ QUIÑONES", servicio: "Clínica San Quintín", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
-        { nombre: "PEDRO ALVARADO MACÍAS", servicio: "Clínica San Quintín", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "MONTES CORONA FRANCISCO RAMON", servicio: "Clínica Mexicali", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "BARRIGA CABRERA JESUS FERNANDO", servicio: "Clínica Mexicali", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "12x12" },
-        { nombre: "OCHOA COSSIO HUMBERTO", servicio: "UMF Mexicali 02", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "MORALES HERNANDEZ ANA MARIA GUADALUPE", servicio: "Clínica Delta B.C.", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "RAMOS RIVERA EULALIO", servicio: "Clínica Mexicali", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "OROZCO JUAREZ VICTOR ALFONSO", servicio: "Supervisión", puesto: "SUPERVISOR", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "VALDEZ RIVERA SONIA", servicio: "Clínica Estación Delta", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "MARQUEZ ZAVALA RAMON FRANCISCO", servicio: "UMF Mexicali 02", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "MORENO CERVANTES SERGIO", servicio: "UMF Mexicali 02", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "TOSCANO ALVAREZ RAUL ANTONIO", servicio: "UMF Mexicali 02", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "GONZALEZ ANAYA GONZALO", servicio: "UMF Mexicali 02", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "GOMEZ GARCIA RAFAEL", servicio: "Construcción Violeta", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "CASTELO ROMERO NOE ISMAEL", servicio: "Construcción Violeta", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "ASTORGA PELAYO RENE", servicio: "Construcción Violeta", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "REYES RODRIGUEZ EVA TERESA", servicio: "Construcción Violeta", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" }
+        { nombre: "ALMA LIDIA GRANDE", servicio: "OFICINAS ABIES", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+        { nombre: "MARIA NATIVIDAD SANCHEZ JIMENEZ", servicio: "OFICINAS ABIES", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+        { nombre: "WILFRIDO ANTONIO MALDONADO MEDINA", servicio: "SUPERVISIÓN", puesto: "SUPERVISOR", turno: "DIURNO", jornada: "12x12" },
+        { nombre: "GUADALUPE MALDONADO RODRIGUEZ", servicio: "CLÍNICA CHIHUAHUA", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+        { nombre: "KENIA SANDOVAL GONZÁLEZ", servicio: "CLÍNICA CHIHUAHUA", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+        { nombre: "ANA LAURA PACHECO VELÁZQUEZ", servicio: "CLÍNICA EL NIÑO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "LILIANA ELIDETH ROBLERO GAMBOA", servicio: "CLÍNICA EL NIÑO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "CLAUDIA DEL CARMEN GONZALEZ LOPEZ", servicio: "CLÍNICA EL RANCHITO", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+        { nombre: "JAZZIRI ESMERALDA GUZMÁN HERRERA", servicio: "CLÍNICA EL RANCHITO", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+        { nombre: "FABIOLA PUGA MALDONADO", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
+        { nombre: "MARIA GUADALUPE MARTÍNEZ BEDOLLA", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "MERARI CONCEPCION GARCIA RABANALES", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
+        { nombre: "NANCY YESENIA MARTINEZ BRIVIESCA", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "ÁMBAR DE JESÚS REYES SANTIAGO", servicio: "CLÍNICA PRIMO TAPIA", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "LOURDES GUADALUPE AGUILAR CABALLERO", servicio: "CLÍNICA PRIMO TAPIA", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "JOSE EMMANUEL RODRIGUEZ BARRERA", servicio: "CLÍNICA PRIMO TAPIA", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
+        { nombre: "GRISELDA GUZMÁN AGUILAR", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "KEILA ISABEL OJENDIZ QUIÑONES", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
+        { nombre: "PEDRO ALVARADO MACÍAS", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "MONTES CORONA FRANCISCO RAMON", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "BARRIGA CABRERA JESUS FERNANDO", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "12x12" },
+        { nombre: "OCHOA COSSIO HUMBERTO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "MORALES HERNANDEZ ANA MARIA GUADALUPE", servicio: "CLÍNICA DELTA B.C.", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "AIDA JAZMÍN HERNÁNDEZ SANCHEZ", servicio: "CLÍNICA DELTA B.C.", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "RAMOS RIVERA EULALIO", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+        { nombre: "OROZCO JUAREZ VICTOR ALFONSO", servicio: "SUPERVISOR MEXICALI", puesto: "SUPERVISOR", turno: "DIURNO", jornada: "12x12" },
+        { nombre: "VALDEZ RIVERA SONIA", servicio: "Clínica Estación Delta", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+        { nombre: "MARQUEZ ZAVALA RAMON FRANCISCO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "MORENO CERVANTES SERGIO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "TOSCANO ALVAREZ RAUL ANTONIO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+        { nombre: "GONZALEZ ANAYA GONZALO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+        { nombre: "GOMEZ GARCIA RAFAEL", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+        { nombre: "CASTELO ROMERO NOE ISMAEL", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+        { nombre: "ASTORGA PELAYO RENE", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+        { nombre: "REYES RODRIGUEZ EVA TERESA", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" }
     ];
 
     let colaboradorSeleccionado = null;
@@ -405,7 +408,7 @@
         document.getElementById("prev-servicio").textContent = persona.servicio;
         document.getElementById("prev-puesto").textContent = persona.puesto;
         document.getElementById("prev-jornada").textContent = persona.jornada;
-        document.getElementById("prev-turno").textContent = persona.turno;
+        //document.getElementById("prev-turno").textContent = persona.turno;
 
         cajaPreview.style.display = "block";
         cajaManual.style.display = "none";
