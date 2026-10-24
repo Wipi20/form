@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -9,6 +10,7 @@
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
+
         body {
             background-color: #e5ddd5;
             margin: 0;
@@ -18,27 +20,31 @@
             align-items: flex-start;
             min-height: 100vh;
         }
+
         .card {
             background: #ffffff;
             width: 100%;
             max-width: 440px;
             border-radius: 14px;
             padding: 20px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
             margin-top: 10px;
         }
+
         .header {
             text-align: center;
             border-bottom: 2px solid #075E54;
             padding-bottom: 12px;
             margin-bottom: 16px;
         }
+
         .header h2 {
             margin: 0;
             color: #075E54;
             font-size: 20px;
             letter-spacing: 0.5px;
         }
+
         .datetime-badge {
             margin-top: 8px;
             display: inline-block;
@@ -48,7 +54,15 @@
             border-radius: 20px;
             font-size: 13px;
             font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
         }
+
+        /* Hora tomada del dispositivo (sin internet o internet lento) */
+        .datetime-badge.sin-verificar {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
         label {
             display: block;
             font-size: 14px;
@@ -56,15 +70,18 @@
             color: #333;
             margin-bottom: 8px;
         }
+
         .input-group {
             display: flex;
             gap: 8px;
             position: relative;
         }
+
         .input-wrapper {
             position: relative;
             flex: 1;
         }
+
         input[type="text"] {
             width: 100%;
             padding: 14px 36px 14px 12px;
@@ -74,9 +91,11 @@
             outline: none;
             transition: border-color 0.2s;
         }
+
         input[type="text"]:focus {
             border-color: #128C7E;
         }
+
         .clear-btn {
             position: absolute;
             right: 10px;
@@ -95,6 +114,7 @@
             display: none;
             padding: 0;
         }
+
         .check-btn {
             background-color: #25D366;
             color: white;
@@ -110,9 +130,11 @@
             box-shadow: 0 2px 6px rgba(37, 211, 102, 0.4);
             flex-shrink: 0;
         }
+
         .check-btn.active {
             display: flex;
         }
+
         /* Lista de sugerencias */
         .suggestions {
             list-style: none;
@@ -124,26 +146,32 @@
             overflow-y: auto;
             background: #fff;
             display: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
         }
+
         .suggestions li {
             padding: 11px 12px;
             border-bottom: 1px solid #f0f0f0;
             font-size: 14px;
             cursor: pointer;
         }
+
         .suggestions li:last-child {
             border-bottom: none;
         }
-        .suggestions li:hover, .suggestions li:active {
+
+        .suggestions li:hover,
+        .suggestions li:active {
             background-color: #e8f5e9;
         }
+
         .suggestions .sub-info {
             display: block;
             font-size: 11px;
             color: #666;
             margin-top: 2px;
         }
+
         /* Vista previa de datos detectados */
         .preview-box {
             margin-top: 16px;
@@ -154,14 +182,30 @@
             display: none;
             font-size: 14px;
         }
+
         .preview-box p {
             margin: 5px 0;
             color: #222;
         }
+
         .preview-box span.tag {
             font-weight: bold;
             color: #075E54;
         }
+
+        .badge-extra {
+            display: none;
+            margin-left: 4px;
+            background: #1565c0;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 10px;
+            vertical-align: middle;
+            letter-spacing: 0.3px;
+        }
+
         /* Respaldo manual por si es vacante o nuevo ingreso */
         .manual-box {
             margin-top: 14px;
@@ -171,13 +215,16 @@
             border-radius: 8px;
             display: none;
         }
+
         .manual-box p {
             margin: 0 0 8px 0;
             font-size: 12px;
             color: #795548;
             font-weight: 600;
         }
-        .manual-box select {
+
+        .manual-box select,
+        .extra-box select {
             width: 100%;
             padding: 10px;
             margin-bottom: 8px;
@@ -186,6 +233,91 @@
             font-size: 14px;
             background: #fff;
         }
+
+        /* Aviso (ej. cubre turno sin turno asignado hoy) */
+        .aviso-box {
+            margin-top: 14px;
+            background: #ffebee;
+            border-left: 4px solid #e53935;
+            color: #b71c1c;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* Apartado de tiempo extra */
+        .extra-box {
+            margin-top: 14px;
+            background: #e3f2fd;
+            border-left: 4px solid #1565c0;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .extra-box .switch-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .extra-box .switch-row small {
+            display: block;
+            font-weight: 400;
+            font-size: 12px;
+            color: #455a64;
+            margin-top: 2px;
+        }
+
+        .extra-box input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .switch {
+            position: relative;
+            width: 46px;
+            height: 26px;
+            background: #b0bec5;
+            border-radius: 13px;
+            flex-shrink: 0;
+            transition: background-color 0.2s;
+        }
+
+        .switch::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .extra-box input[type="checkbox"]:checked+.switch {
+            background: #1565c0;
+        }
+
+        .extra-box input[type="checkbox"]:checked+.switch::after {
+            transform: translateX(20px);
+        }
+
+        .extra-box select {
+            margin-top: 10px;
+            margin-bottom: 0;
+            display: none;
+        }
+
         /* Botón principal inferior */
         .submit-btn {
             width: 100%;
@@ -204,9 +336,11 @@
             gap: 8px;
             box-shadow: 0 4px 10px rgba(37, 211, 102, 0.35);
         }
+
         .submit-btn.active {
             display: flex;
         }
+
         .helper-text {
             font-size: 12px;
             color: #666;
@@ -215,350 +349,628 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="card">
-    <div class="header">
-        <h2>REGISTRO DE ASISTENCIA</h2>
-        <div class="datetime-badge" id="reloj-actual">Cargando fecha y hora...</div>
+    <div class="card">
+        <div class="header">
+            <h2>REGISTRO DE ASISTENCIA</h2>
+            <div class="datetime-badge" id="reloj-actual">Verificando hora en internet...</div>
+        </div>
+
+        <form id="form-asistencia" onsubmit="enviarAWhatsApp(event)">
+            <label for="input-nombre">Nombre completo del colaborador:</label>
+
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <input type="text" id="input-nombre" placeholder="Escribe tu nombre aquí..." autocomplete="off"
+                        enterkeyhint="done" required>
+                    <button type="button" class="clear-btn" id="btn-limpiar" title="Borrar nombre">✕</button>
+                </div>
+                <!-- Botón de palomita al lado del nombre -->
+                <button type="submit" class="check-btn" id="btn-check-lado" title="Enviar a WhatsApp">✓</button>
+            </div>
+
+            <!-- Sugerencias rápidas mientras escribe -->
+            <ul class="suggestions" id="lista-sugerencias"></ul>
+
+            <!-- Tarjeta de datos detectados automáticamente -->
+            <div class="preview-box" id="caja-preview">
+                <p><span class="tag">Colaborador:</span> <span id="prev-nombre"></span></p>
+                <p><span class="tag">Servicio:</span> <span id="prev-servicio"></span>
+                    <span class="badge-extra" id="prev-extra">TIEMPO EXTRA</span>
+                </p>
+                <p><span class="tag">Puesto:</span> <span id="prev-puesto"></span></p>
+                <p><span class="tag">Jornada:</span> <span id="prev-jornada"></span>
+                    <!--(<span id="prev-turno"></span>)-->
+                </p>
+            </div>
+
+            <!-- Opciones manuales si la persona es de nuevo ingreso / vacante -->
+            <div class="manual-box" id="caja-manual">
+                <p>Nombre no encontrado en padrón. Confirma tus datos para continuar:</p>
+                <select id="man-servicio"></select>
+                <!-- El puesto SUPERVISOR solo lo tienen los supervisores registrados en el padrón -->
+                <select id="man-puesto">
+                    <option value="ACCESO PRINCIPAL" selected>ACCESO PRINCIPAL</option>
+                </select>
+                <select id="man-jornada">
+                    <option value="12x12">Jornada: 12x12</option>
+                    <option value="24x24" selected>Jornada: 24x24</option>
+                </select>
+            </div>
+
+            <!-- Aviso cuando no se puede enviar todavía (ej. cubre turno en día sin turno asignado) -->
+            <div class="aviso-box" id="caja-aviso"></div>
+
+            <!-- Tiempo extra / cubrir turno en otra ubicación -->
+            <div class="extra-box" id="caja-extra">
+                <label class="switch-row" for="chk-extra">
+                    <span>
+                        Tiempo extra / cubrir turno
+                        <small>Actívalo si hoy trabajas en otra ubicación</small>
+                    </span>
+                    <input type="checkbox" id="chk-extra">
+                    <span class="switch"></span>
+                </label>
+                <select id="extra-servicio">
+                    <option value="" disabled selected>Selecciona el servicio donde estás...</option>
+                </select>
+            </div>
+
+            <!-- Botón de confirmación abajo -->
+            <button type="submit" class="submit-btn" id="btn-enviar-abajo">
+                <span>✓ Enviar Asistencia a WhatsApp</span>
+            </button>
+        </form>
+
+        <p class="helper-text">
+            Escribe tu nombre y toca el botón <b>✓</b> (o la tecla <b>Realizado</b> de tu teclado) para abrir WhatsApp
+            con tus datos listos.
+        </p>
     </div>
 
-    <form id="form-asistencia" onsubmit="enviarAWhatsApp(event)">
-        <label for="input-nombre">Nombre completo del colaborador:</label>
-        
-        <div class="input-group">
-            <div class="input-wrapper">
-                <input 
-                    type="text" 
-                    id="input-nombre" 
-                    placeholder="Escribe tu nombre aquí..." 
-                    autocomplete="off" 
-                    enterkeyhint="done"
-                    required
-                >
-                <button type="button" class="clear-btn" id="btn-limpiar" title="Borrar nombre">✕</button>
-            </div>
-            <!-- Botón de palomita al lado del nombre -->
-            <button type="submit" class="check-btn" id="btn-check-lado" title="Enviar a WhatsApp">✓</button>
-        </div>
+    <script>
+        // Padrón oficial extraído del Excel
+        const PERSONAL = [
+            { nombre: "ALMA LIDIA GRANDE", servicio: "OFICINAS ABIES", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+            { nombre: "MARIA NATIVIDAD SANCHEZ JIMENEZ", servicio: "OFICINAS ABIES", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+            { nombre: "WILFRIDO ANTONIO MALDONADO MEDINA", servicio: "SUPERVISIÓN", puesto: "SUPERVISOR", turno: "DIURNO", jornada: "12x12" },
+            { nombre: "ENRIQUE CAMPOS CARMONA", servicio: "SUPERVISIÓN", puesto: "SUPERVISOR TIJUANA", turno: "NOCTURNO", jornada: "12x12" },
+            { nombre: "GUADALUPE MALDONADO RODRIGUEZ", servicio: "CLÍNICA CHIHUAHUA", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+            { nombre: "KENIA SANDOVAL GONZÁLEZ", servicio: "CLÍNICA CHIHUAHUA", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+            { nombre: "ANA LAURA PACHECO VELÁZQUEZ", servicio: "CLÍNICA EL NIÑO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "LILIANA ELIDETH ROBLERO GAMBOA", servicio: "CLÍNICA EL NIÑO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "CLAUDIA DEL CARMEN GONZALEZ LOPEZ", servicio: "CLÍNICA EL RANCHITO", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+            { nombre: "JAZZIRI ESMERALDA GUZMÁN HERRERA", servicio: "CLÍNICA EL RANCHITO", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+            { nombre: "FABIOLA PUGA MALDONADO", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
+            { nombre: "MARIA GUADALUPE MARTÍNEZ BEDOLLA", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "MERARI CONCEPCION GARCIA RABANALES", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
+            { nombre: "NANCY YESENIA MARTINEZ BRIVIESCA", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "ÁMBAR DE JESÚS REYES SANTIAGO", servicio: "CLÍNICA PRIMO TAPIA", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "LOURDES GUADALUPE AGUILAR CABALLERO", servicio: "CLÍNICA PRIMO TAPIA", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "JOSE EMMANUEL RODRIGUEZ BARRERA", servicio: "CLÍNICA PRIMO TAPIA", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
+            { nombre: "GRISELDA GUZMÁN AGUILAR", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "KEILA ISABEL OJENDIZ QUIÑONES", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
+            { nombre: "PEDRO ALVARADO MACÍAS", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "FRANCISCO RAMON MONTES CORONA", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "JESUS FERNANDO BARRIGA CABRERA", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "12x12" },
+            { nombre: "HUMBERTO OCHOA COSSIO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "ANA MARIA GUADALUPE MORALES HERNANDEZ", servicio: "UNIDAD VALLE DE MEXICALI ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "AIDA JAZMÍN HERNÁNDEZ SANCHEZ", servicio: "UNIDAD VALLE DE MEXICALI ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "EULALIO RAMOS RIVERA", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+            { nombre: "VICTOR ALFONSO OROZCO JUAREZ", servicio: "SUPERVISOR MEXICALI", puesto: "SUPERVISOR", turno: "DIURNO", jornada: "12x12" },
+            { nombre: "SONIA VALDEZ RIVERA", servicio: "UNIDAD VALLE DE MEXICALI ", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+            { nombre: "RAMON FRANCISCO MARQUEZ ZAVALA", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "SERGIO MORENO CERVANTES", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "RAUL ANTONIO TOSCANO ALVAREZ", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+            { nombre: "GONZALO GONZALEZ ANAYA", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "RAFAEL GOMEZ GARCIA", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+            { nombre: "NOE ISMAEL CASTELO ROMERO", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
+            { nombre: "RENE ASTORGA PELAYO", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+            { nombre: "EVA TERESA REYES RODRIGUEZ", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+            // Cubre turnos: su servicio depende del día de la semana (0 = domingo ... 6 = sábado)
+            {
+                nombre: "MARÍA DE JESÚS PÉREZ DE LEÓN", servicio: "CUBRE TURNO", puesto: "CUBRE TURNO", turno: "MIXTO", jornada: "24x24",
+                rotacion: { 2: "CLÍNICA CHIHUAHUA", 4: "CLÍNICA EL RANCHITO", 6: "OFICINAS ABIES" }
+            }
+        ];
 
-        <!-- Sugerencias rápidas mientras escribe -->
-        <ul class="suggestions" id="lista-sugerencias"></ul>
+        // Catálogo de servicios (para la caja manual y para tiempo extra)
+        const SERVICIOS = [
+            "OFICINAS ABIES",
+            "SUPERVISIÓN",
+            "CLÍNICA CHIHUAHUA",
+            "CLÍNICA EL NIÑO",
+            "CLÍNICA EL RANCHITO",
+            "CLÍNICA MANEADERO",
+            "CLÍNICA PRIMO TAPIA",
+            "CLÍNICA SAN QUINTÍN",
+            "CLÍNICA MEXICALI",
+            "BENITO JUÁREZ",
+            "UNIDAD VALLE DE MEXICALI ",
+            "CONSTRUCCIÓN VIOLETA",
+            "SUPERVISOR MEXICALI",
+            "SUPERVISOR TIJUANA"
+        ];
+        const SERVICIO_MANUAL_DEFAULT = "CLÍNICA PRIMO TAPIA";
 
-        <!-- Tarjeta de datos detectados automáticamente -->
-        <div class="preview-box" id="caja-preview">
-            <p><span class="tag">Colaborador:</span> <span id="prev-nombre"></span></p>
-            <p><span class="tag">Servicio:</span> <span id="prev-servicio"></span></p>
-            <p><span class="tag">Puesto:</span> <span id="prev-puesto"></span></p>
-            <p><span class="tag">Jornada:</span> <span id="prev-jornada"></span> <!--(<span id="prev-turno"></span>)--></p>
-        </div>
+        const DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
 
-        <!-- Opciones manuales si la persona es de nuevo ingreso / vacante -->
-        <div class="manual-box" id="caja-manual">
-            <p>Nombre no encontrado en padrón. Confirma tus datos para continuar:</p>
-            <select id="man-servicio">
-                <option value="OFICINAS ABIES">OFICINAS ABIES</option>
-                <option value="SUPERVISIÓN">SUPERVISIÓN</option>
-                <option value="CLÍNICA CHIHUAHUA">CLÍNICA CHIHUAHUA</option>
-                <option value="CLÍNICA EL NIÑO">CLÍNICA EL NIÑO</option>
-                <option value="CLÍNICA EL RANCHITO">CLÍNICA EL RANCHITO</option>
-                <option value="CLÍNICA MANEADERO">CLÍNICA MANEADERO</option>
-                <option value="CLÍNICA PRIMO TAPIA" selected>CLÍNICA PRIMO TAPIA</option>
-                <option value="CLÍNICA SAN QUINTÍN">CLÍNICA SAN QUINTÍN</option>
-                <option value="CLÍNICA MEXICALI">CLÍNICA MEXICALI</option>
-                <option value="BENITO JUÁREZ">BENITO JUÁREZ</option>
-                <option value="UNIDAD VALLE DE MEXICALI ">UNIDAD VALLE DE MEXICALI </option>
-                <option value="SUPERVISIÓN MEXICALI">SUPERVISIÓN MEXICALI</option>
-                <option value="UNIDAD VALLE DE MEXICALI">UNIDAD VALLE DE MEXICALI </option>
-                <option value="CONSTRUCCIÓN VIOLETA">CONSTRUCCIÓN VIOLETA</option>
-                <option value="SUPERVISOR MEXICALI">SUPERVISOR MEXICALI</option>
-            </select>
-            <select id="man-puesto">
-                <option value="ACCESO PRINCIPAL" selected>ACCESO PRINCIPAL</option>
-                <option value="SUPERVISOR">SUPERVISOR</option>
-            </select>
-            <select id="man-jornada">
-                <option value="12x12">Jornada: 12x12</option>
-                <option value="24x24" selected>Jornada: 24x24</option>
-            </select>
-        </div>
+        let colaboradorSeleccionado = null;
+        let modoManual = false;
+        let claveSeleccion = "";
 
-        <!-- Botón de confirmación abajo -->
-        <button type="submit" class="submit-btn" id="btn-enviar-abajo">
-            <span>✓ Enviar Asistencia a WhatsApp</span>
-        </button>
-    </form>
+        // ================== HORA DE INTERNET ==================
+        // Todas las ubicaciones están en Baja California: se usa esta zona horaria
+        // para que cambiar la zona del teléfono tampoco altere la hora.
+        const ZONA_HORARIA = "America/Tijuana";
+        const TIMEOUT_HORA_MS = 5000;   // si internet es más lento que esto, se usa la hora del dispositivo
 
-    <p class="helper-text">
-        Escribe tu nombre y toca el botón <b>✓</b> (o la tecla <b>Realizado</b> de tu teclado) para abrir WhatsApp con tus datos listos.
-    </p>
-</div>
+        let desfaseMs = 0;              // diferencia entre la hora real (internet) y el reloj del dispositivo
+        let horaVerificada = false;     // true = la hora viene de internet
+        let sincronizando = false;
 
-<script>
-    // Padrón oficial extraído del Excel
-    const PERSONAL = [
-        { nombre: "ALMA LIDIA GRANDE", servicio: "OFICINAS ABIES", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "MARIA NATIVIDAD SANCHEZ JIMENEZ", servicio: "OFICINAS ABIES", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "WILFRIDO ANTONIO MALDONADO MEDINA", servicio: "SUPERVISIÓN", puesto: "SUPERVISOR", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "GUADALUPE MALDONADO RODRIGUEZ", servicio: "CLÍNICA CHIHUAHUA", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "KENIA SANDOVAL GONZÁLEZ", servicio: "CLÍNICA CHIHUAHUA", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "ANA LAURA PACHECO VELÁZQUEZ", servicio: "CLÍNICA EL NIÑO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "LILIANA ELIDETH ROBLERO GAMBOA", servicio: "CLÍNICA EL NIÑO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "CLAUDIA DEL CARMEN GONZALEZ LOPEZ", servicio: "CLÍNICA EL RANCHITO", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "JAZZIRI ESMERALDA GUZMÁN HERRERA", servicio: "CLÍNICA EL RANCHITO", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "FABIOLA PUGA MALDONADO", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
-        { nombre: "MARIA GUADALUPE MARTÍNEZ BEDOLLA", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "MERARI CONCEPCION GARCIA RABANALES", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
-        { nombre: "NANCY YESENIA MARTINEZ BRIVIESCA", servicio: "CLÍNICA MANEADERO", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "ÁMBAR DE JESÚS REYES SANTIAGO", servicio: "CLÍNICA PRIMO TAPIA", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "LOURDES GUADALUPE AGUILAR CABALLERO", servicio: "CLÍNICA PRIMO TAPIA", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "JOSE EMMANUEL RODRIGUEZ BARRERA", servicio: "CLÍNICA PRIMO TAPIA", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
-        { nombre: "GRISELDA GUZMÁN AGUILAR", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "KEILA ISABEL OJENDIZ QUIÑONES", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
-        { nombre: "PEDRO ALVARADO MACÍAS", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "MONTES CORONA FRANCISCO RAMON", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "BARRIGA CABRERA JESUS FERNANDO", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "12x12" },
-        { nombre: "OCHOA COSSIO HUMBERTO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "MORALES HERNANDEZ ANA MARIA GUADALUPE", servicio: "UNIDAD VALLE DE MEXICALI ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "AIDA JAZMÍN HERNÁNDEZ SANCHEZ", servicio: "UNIDAD VALLE DE MEXICALI ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "RAMOS RIVERA EULALIO", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "OROZCO JUAREZ VICTOR ALFONSO", servicio: "SUPERVISOR MEXICALI", puesto: "SUPERVISOR", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "VALDEZ RIVERA SONIA", servicio: "UNIDAD VALLE DE MEXICALI ", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "MARQUEZ ZAVALA RAMON FRANCISCO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "MORENO CERVANTES SERGIO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "TOSCANO ALVAREZ RAUL ANTONIO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "GONZALEZ ANAYA GONZALO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-        { nombre: "GOMEZ GARCIA RAFAEL", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "CASTELO ROMERO NOE ISMAEL", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
-        { nombre: "ASTORGA PELAYO RENE", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
-        { nombre: "REYES RODRIGUEZ EVA TERESA", servicio: "CONSTRUCCIÓN VIOLETA", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" }
-    ];
+        // Fuentes de hora en internet (se usa la primera que responda)
+        const FUENTES_HORA = [
+            // Encabezado "Date" del mismo servidor donde está publicada la página
+            async (signal) => {
+                if (location.protocol === "file:") throw new Error("sin servidor");
+                const r = await fetch(location.href.split("#")[0], { method: "HEAD", cache: "no-store", signal });
+                const fecha = r.headers.get("Date");
+                if (!fecha) throw new Error("sin encabezado Date");
+                return Date.parse(fecha);
+            },
+            async (signal) => {
+                const r = await fetch("https://worldtimeapi.org/api/timezone/Etc/UTC", { cache: "no-store", signal });
+                const j = await r.json();
+                return Date.parse(j.utc_datetime);
+            },
+            async (signal) => {
+                const r = await fetch("https://timeapi.io/api/Time/current/zone?timeZone=UTC", { cache: "no-store", signal });
+                const j = await r.json();
+                return Date.UTC(j.year, j.month - 1, j.day, j.hour, j.minute, j.seconds, j.milliSeconds || 0);
+            },
+            async (signal) => {
+                const r = await fetch("https://www.cloudflare.com/cdn-cgi/trace", { cache: "no-store", signal });
+                const texto = await r.text();
+                const m = texto.match(/ts=([\d.]+)/);
+                if (!m) throw new Error("sin ts");
+                return parseFloat(m[1]) * 1000;
+            }
+        ];
 
-    let colaboradorSeleccionado = null;
+        // Devuelve la primera hora válida que responda, o falla si se agota el tiempo
+        function primeraHoraValida(fuentes, limiteMs) {
+            return new Promise((resolve, reject) => {
+                const ctrl = new AbortController();
+                let pendientes = fuentes.length;
+                const timer = setTimeout(() => { ctrl.abort(); reject(new Error("tiempo agotado")); }, limiteMs);
 
-    // Función para quitar acentos, espacios extra y pasar a mayúsculas
-    function normalizar(texto) {
-        return texto
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .toUpperCase()
-            .replace(/\s+/g, " ")
-            .trim();
-    }
+                fuentes.forEach(fuente => {
+                    fuente(ctrl.signal)
+                        .then(ms => {
+                            if (!Number.isFinite(ms) || ms < Date.UTC(2024, 0, 1)) throw new Error("hora inválida");
+                            clearTimeout(timer);
+                            ctrl.abort();
+                            resolve(ms);
+                        })
+                        .catch(() => {
+                            pendientes--;
+                            if (pendientes === 0) {
+                                clearTimeout(timer);
+                                reject(new Error("ninguna fuente respondió"));
+                            }
+                        });
+                });
+            });
+        }
 
-    // Comprobar si todas las palabras escritas coinciden con un registro (sin importar el orden Nombre/Apellido)
-    function buscarCoincidencias(textoUsuario) {
-        const limpio = normalizar(textoUsuario);
-        if (!limpio) return [];
-        const palabras = limpio.split(" ");
-
-        return PERSONAL.filter(persona => {
-            const nombreNorm = normalizar(persona.nombre);
-            return palabras.every(p => nombreNorm.includes(p));
-        });
-    }
-
-    // Comprobar si el nombre escrito coincide exactamente con todas las palabras de una persona
-    function buscarExacto(textoUsuario) {
-        const limpio = normalizar(textoUsuario);
-        if (!limpio) return null;
-        const palabrasUsuario = limpio.split(" ").sort().join(" ");
-
-        for (const persona of PERSONAL) {
-            const nombreNorm = normalizar(persona.nombre);
-            const palabrasPersona = nombreNorm.split(" ").sort().join(" ");
-            if (limpio === nombreNorm || palabrasUsuario === palabrasPersona) {
-                return persona;
+        async function sincronizarHora() {
+            if (sincronizando || !window.fetch || !window.AbortController) return;
+            sincronizando = true;
+            try {
+                const t0 = Date.now();
+                const servidorMs = await primeraHoraValida(FUENTES_HORA, TIMEOUT_HORA_MS);
+                const t1 = Date.now();
+                // Se compensa la mitad del tiempo de ida y vuelta de la petición
+                desfaseMs = servidorMs + (t1 - t0) / 2 - t1;
+                horaVerificada = true;
+            } catch (e) {
+                // Sin internet o demasiado lento: se conserva la última hora verificada
+                // o, si nunca se pudo verificar, se usa el reloj del dispositivo (desfase 0).
+            } finally {
+                sincronizando = false;
+                actualizarReloj();
+                refrescarDetalle(); // el día puede cambiar (afecta a cubre turnos)
             }
         }
-        return null;
-    }
 
-    function obtenerFechaHoraActual() {
-        const ahora = new Date();
-        const dia = String(ahora.getDate()).padStart(2, '0');
-        const mes = String(ahora.getMonth() + 1).padStart(2, '0');
-        const anio = ahora.getFullYear();
-        const horas = String(ahora.getHours()).padStart(2, '0');
-        const minutos = String(ahora.getMinutes()).padStart(2, '0');
-
-        return {
-            fecha: `${dia}/${mes}/${anio}`,
-            hora12: `${horas}:${minutos} hrs`,
-            hora24: `${horas}:${minutos}hrs`
-        };
-    }
-
-    function actualizarReloj() {
-        const dt = obtenerFechaHoraActual();
-        document.getElementById("reloj-actual").textContent = `Fecha: ${dt.fecha} | Hora: ${dt.hora12}`;
-    }
-
-    const inputNombre = document.getElementById("input-nombre");
-    const listaSugerencias = document.getElementById("lista-sugerencias");
-    const cajaPreview = document.getElementById("caja-preview");
-    const cajaManual = document.getElementById("caja-manual");
-    const btnCheckLado = document.getElementById("btn-check-lado");
-    const btnEnviarAbajo = document.getElementById("btn-enviar-abajo");
-    const btnLimpiar = document.getElementById("btn-limpiar");
-
-    function mostrarDatosColaborador(persona) {
-        colaboradorSeleccionado = persona;
-        document.getElementById("prev-nombre").textContent = persona.nombre;
-        document.getElementById("prev-servicio").textContent = persona.servicio;
-        document.getElementById("prev-puesto").textContent = persona.puesto;
-        document.getElementById("prev-jornada").textContent = persona.jornada;
-        //document.getElementById("prev-turno").textContent = persona.turno;
-
-        cajaPreview.style.display = "block";
-        cajaManual.style.display = "none";
-        btnCheckLado.classList.add("active");
-        btnEnviarAbajo.classList.add("active");
-    }
-
-    function evaluarEntrada() {
-        const valor = inputNombre.value;
-        btnLimpiar.style.display = valor.length > 0 ? "block" : "none";
-
-        if (valor.trim().length < 2) {
-            listaSugerencias.style.display = "none";
-            cajaPreview.style.display = "none";
-            cajaManual.style.display = "none";
-            btnCheckLado.classList.remove("active");
-            btnEnviarAbajo.classList.remove("active");
-            colaboradorSeleccionado = null;
-            return;
+        function ahoraMs() {
+            return Date.now() + desfaseMs;
         }
 
-        // 1. Verificar coincidencia exacta o única
-        const exacto = buscarExacto(valor);
-        const coincidencias = buscarCoincidencias(valor);
+        function obtenerFechaHoraActual() {
+            const ahora = new Date(ahoraMs());
+            let p;
+            try {
+                p = {};
+                new Intl.DateTimeFormat("en-US", {
+                    timeZone: ZONA_HORARIA, year: "numeric", month: "2-digit", day: "2-digit",
+                    hour: "2-digit", minute: "2-digit", hourCycle: "h23", weekday: "short"
+                }).formatToParts(ahora).forEach(x => { p[x.type] = x.value; });
+                const indiceDia = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+                p.diaSemana = indiceDia[p.weekday];
+                if (p.hour === "24") p.hour = "00";
+            } catch (e) {
+                // Navegador sin soporte de zonas horarias: se usa la hora local del dispositivo
+                p = {
+                    day: String(ahora.getDate()).padStart(2, "0"),
+                    month: String(ahora.getMonth() + 1).padStart(2, "0"),
+                    year: ahora.getFullYear(),
+                    hour: String(ahora.getHours()).padStart(2, "0"),
+                    minute: String(ahora.getMinutes()).padStart(2, "0"),
+                    diaSemana: ahora.getDay()
+                };
+            }
 
-        if (exacto) {
-            listaSugerencias.style.display = "none";
-            mostrarDatosColaborador(exacto);
-            return;
+            return {
+                fecha: `${p.day}/${p.month}/${p.year}`,
+                hora12: `${p.hour}:${p.minute} hrs`,
+                hora24: `${p.hour}:${p.minute}hrs`,
+                diaSemana: p.diaSemana
+            };
         }
 
-        // Si solo queda 1 coincidencia y escribió al menos 2 palabras (nombre y apellido)
-        if (coincidencias.length === 1 && normalizar(valor).split(" ").length >= 2) {
-            mostrarDatosColaborador(coincidencias[0]);
-        } else {
-            colaboradorSeleccionado = null;
-            cajaPreview.style.display = "none";
+        function actualizarReloj() {
+            const dt = obtenerFechaHoraActual();
+            const reloj = document.getElementById("reloj-actual");
+            if (sincronizando && !horaVerificada) {
+                reloj.textContent = "Verificando hora en internet...";
+                return;
+            }
+            const icono = horaVerificada ? "🌐" : "📱";
+            reloj.textContent = `${icono} Fecha: ${dt.fecha} | Hora: ${dt.hora12}`;
+            reloj.classList.toggle("sin-verificar", !horaVerificada);
+            reloj.title = horaVerificada ? "Hora verificada por internet" : "Sin internet: hora del dispositivo";
         }
 
-        // Mostrar lista desplegable de coincidencias para facilitar el toque
-        if (coincidencias.length > 0) {
+        // ================== BÚSQUEDA ==================
+
+        // Función para quitar acentos, espacios extra y pasar a mayúsculas
+        function normalizar(texto) {
+            return texto
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toUpperCase()
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+
+        // Comprobar si todas las palabras escritas coinciden con un registro (sin importar el orden Nombre/Apellido)
+        function buscarCoincidencias(textoUsuario) {
+            const limpio = normalizar(textoUsuario);
+            if (!limpio) return [];
+            const palabras = limpio.split(" ");
+
+            return PERSONAL.filter(persona => {
+                const nombreNorm = normalizar(persona.nombre);
+                return palabras.every(p => nombreNorm.includes(p));
+            });
+        }
+
+        // Comprobar si el nombre escrito coincide exactamente con todas las palabras de una persona
+        function buscarExacto(textoUsuario) {
+            const limpio = normalizar(textoUsuario);
+            if (!limpio) return null;
+            const palabrasUsuario = limpio.split(" ").sort().join(" ");
+
+            for (const persona of PERSONAL) {
+                const nombreNorm = normalizar(persona.nombre);
+                const palabrasPersona = nombreNorm.split(" ").sort().join(" ");
+                if (limpio === nombreNorm || palabrasUsuario === palabrasPersona) {
+                    return persona;
+                }
+            }
+            return null;
+        }
+
+        // ================== SERVICIO SEGÚN PERSONA / DÍA ==================
+
+        // Servicio que le toca hoy (para cubre turnos depende del día; null si no tiene turno)
+        function servicioDelDia(persona, diaSemana) {
+            if (persona.rotacion) return persona.rotacion[diaSemana] || null;
+            return persona.servicio;
+        }
+
+        // El servicio se envía tal cual (la cubre turnos lleva "CUBRE TURNO" en el puesto, no en el servicio)
+        function formatearServicio(persona, servicio) {
+            return servicio;
+        }
+
+        function textoRotacion(persona) {
+            return Object.keys(persona.rotacion)
+                .map(d => `${DIAS[d]}: ${persona.rotacion[d]}`)
+                .join(", ");
+        }
+
+        // ================== INTERFAZ ==================
+
+        const inputNombre = document.getElementById("input-nombre");
+        const listaSugerencias = document.getElementById("lista-sugerencias");
+        const cajaPreview = document.getElementById("caja-preview");
+        const cajaManual = document.getElementById("caja-manual");
+        const cajaAviso = document.getElementById("caja-aviso");
+        const cajaExtra = document.getElementById("caja-extra");
+        const chkExtra = document.getElementById("chk-extra");
+        const selExtra = document.getElementById("extra-servicio");
+        const selManServicio = document.getElementById("man-servicio");
+        const btnCheckLado = document.getElementById("btn-check-lado");
+        const btnEnviarAbajo = document.getElementById("btn-enviar-abajo");
+        const btnLimpiar = document.getElementById("btn-limpiar");
+
+        // Servicios de supervisión: solo los supervisores pueden tenerlos
+        function esSupervision(texto) {
+            return normalizar(texto || "").includes("SUPERVIS");
+        }
+
+        function esSupervisor(persona) {
+            return !!persona && (esSupervision(persona.puesto) || esSupervision(persona.servicio));
+        }
+
+        // Caja manual (personas fuera del padrón): sin servicios de supervisión
+        SERVICIOS.filter(s => !esSupervision(s)).forEach(s => {
+            selManServicio.add(new Option(s, s, false, s === SERVICIO_MANUAL_DEFAULT));
+        });
+
+        // Tiempo extra: solo clínicas y servicios operativos (sin supervisión)
+        function llenarServiciosExtra() {
+            selExtra.length = 1; // conserva solo "Selecciona el servicio..."
+            SERVICIOS
+                .filter(s => !esSupervision(s))
+                .forEach(s => selExtra.add(new Option(s, s)));
+            selExtra.selectedIndex = 0;
+        }
+        llenarServiciosExtra();
+
+        // Datos que se enviarán; null si todavía no se puede enviar
+        function obtenerDatosEnvio(dt) {
+            const servicioExtra = chkExtra.checked ? selExtra.value : "";
+            if (chkExtra.checked && !servicioExtra) return null; // activó tiempo extra pero no eligió servicio
+
+            if (colaboradorSeleccionado) {
+                const p = colaboradorSeleccionado;
+                // Si es supervisor no aplica tiempo extra
+                const servicio = (!esSupervisor(p) && servicioExtra) ? servicioExtra : servicioDelDia(p, dt.diaSemana);
+                if (!servicio) return null; // cubre turnos sin turno hoy y sin tiempo extra
+                return { nombre: p.nombre, servicio: formatearServicio(p, servicio), puesto: p.puesto, jornada: p.jornada };
+            }
+
+            if (modoManual) {
+                return {
+                    nombre: inputNombre.value.trim().toUpperCase(),
+                    servicio: servicioExtra || selManServicio.value,
+                    puesto: document.getElementById("man-puesto").value,
+                    jornada: document.getElementById("man-jornada").value
+                };
+            }
+
+            return null;
+        }
+
+        // Redibuja vista previa, caja manual, aviso, tiempo extra y botones según el estado actual
+        function refrescarDetalle() {
+            const dt = obtenerFechaHoraActual();
+            const esSup = esSupervisor(colaboradorSeleccionado);
+            // El tiempo extra NO se muestra a supervisores (ellos tienen movilidad libre como supervisores)
+            const mostrarTiempoExtra = (!!colaboradorSeleccionado || modoManual) && !esSup;
+
+            if (esSup) {
+                chkExtra.checked = false;
+            }
+
+            cajaExtra.style.display = mostrarTiempoExtra ? "block" : "none";
+            selExtra.style.display = (mostrarTiempoExtra && chkExtra.checked) ? "block" : "none";
+            cajaAviso.style.display = "none";
+
+            const servicioExtra = chkExtra.checked ? selExtra.value : "";
+
+            if (colaboradorSeleccionado) {
+                const p = colaboradorSeleccionado;
+                const base = servicioDelDia(p, dt.diaSemana);
+
+                let servicioMostrar;
+                if (chkExtra.checked) {
+                    servicioMostrar = servicioExtra ? formatearServicio(p, servicioExtra) : "Selecciona el servicio ↓";
+                } else {
+                    servicioMostrar = base ? formatearServicio(p, base) : "Sin turno asignado hoy";
+                }
+
+                document.getElementById("prev-nombre").textContent = p.nombre;
+                document.getElementById("prev-servicio").textContent = servicioMostrar;
+                document.getElementById("prev-extra").style.display = (chkExtra.checked && servicioExtra) ? "inline-block" : "none";
+                document.getElementById("prev-puesto").textContent = p.puesto;
+                document.getElementById("prev-jornada").textContent = p.jornada;
+                //document.getElementById("prev-turno").textContent = p.turno;
+
+                if (p.rotacion && !base && !chkExtra.checked) {
+                    cajaAviso.textContent = `Hoy es ${DIAS[dt.diaSemana]} y no tienes turno asignado ` +
+                        `(${textoRotacion(p)}). Activa "Tiempo extra" y elige el servicio para poder enviar.`;
+                    cajaAviso.style.display = "block";
+                }
+
+                cajaPreview.style.display = "block";
+                cajaManual.style.display = "none";
+            } else if (modoManual) {
+                cajaPreview.style.display = "none";
+                cajaManual.style.display = "block";
+            } else {
+                cajaPreview.style.display = "none";
+                cajaManual.style.display = "none";
+            }
+
+            const puedeEnviar = obtenerDatosEnvio(dt) !== null;
+            btnCheckLado.classList.toggle("active", puedeEnviar);
+            btnEnviarAbajo.classList.toggle("active", puedeEnviar);
+        }
+
+        // Cambia la persona seleccionada; si cambia de persona se reinicia el tiempo extra
+        function establecerSeleccion(persona, manual) {
+            const clave = persona ? persona.nombre : (manual ? "__manual__" : "");
+            if (clave !== claveSeleccion) {
+                chkExtra.checked = false;
+                selExtra.selectedIndex = 0;
+                claveSeleccion = clave;
+            }
+            colaboradorSeleccionado = persona;
+            modoManual = manual;
+            refrescarDetalle();
+        }
+
+        function mostrarSugerencias(coincidencias) {
             listaSugerencias.innerHTML = "";
             coincidencias.forEach(persona => {
                 const li = document.createElement("li");
-                li.innerHTML = `<strong>${persona.nombre}</strong>
-                                <span class="sub-info">${persona.servicio} • Jornada ${persona.jornada}</span>`;
-                li.onclick = function() {
+                const fuerte = document.createElement("strong");
+                fuerte.textContent = persona.nombre;
+                const sub = document.createElement("span");
+                sub.className = "sub-info";
+                sub.textContent = `${persona.servicio} • Jornada ${persona.jornada}`;
+                li.append(fuerte, sub);
+                li.onclick = function () {
                     inputNombre.value = persona.nombre;
                     listaSugerencias.style.display = "none";
-                    mostrarDatosColaborador(persona);
+                    btnLimpiar.style.display = "block";
+                    establecerSeleccion(persona, false);
                 };
                 listaSugerencias.appendChild(li);
             });
             listaSugerencias.style.display = "block";
-            cajaManual.style.display = "none";
-        } else {
-            // Si escribió un nombre completo que no está en la lista (ej. cubriendo vacante)
+        }
+
+        function evaluarEntrada() {
+            const valor = inputNombre.value;
+            btnLimpiar.style.display = valor.length > 0 ? "block" : "none";
             listaSugerencias.style.display = "none";
-            if (normalizar(valor).split(" ").length >= 2) {
-                cajaManual.style.display = "block";
-                btnCheckLado.classList.add("active");
-                btnEnviarAbajo.classList.add("active");
-            } else {
-                cajaManual.style.display = "none";
-                btnCheckLado.classList.remove("active");
-                btnEnviarAbajo.classList.remove("active");
+
+            let persona = null;
+            let manual = false;
+
+            if (valor.trim().length >= 2) {
+                const numPalabras = normalizar(valor).split(" ").length;
+                const exacto = buscarExacto(valor);
+
+                if (exacto) {
+                    persona = exacto;
+                } else {
+                    const coincidencias = buscarCoincidencias(valor);
+                    // Si solo queda 1 coincidencia y escribió al menos 2 palabras (nombre y apellido)
+                    if (coincidencias.length === 1 && numPalabras >= 2) {
+                        persona = coincidencias[0];
+                    }
+                    if (coincidencias.length > 0) {
+                        // Mostrar lista desplegable de coincidencias para facilitar el toque
+                        mostrarSugerencias(coincidencias);
+                    } else if (numPalabras >= 2) {
+                        // Escribió un nombre completo que no está en la lista (ej. cubriendo vacante)
+                        manual = true;
+                    }
+                }
             }
-        }
-    }
 
-    inputNombre.addEventListener("input", evaluarEntrada);
-
-    btnLimpiar.addEventListener("click", function() {
-        inputNombre.value = "";
-        localStorage.removeItem("asist_ultimo_nombre");
-        evaluarEntrada();
-        inputNombre.focus();
-    });
-
-    function enviarAWhatsApp(event) {
-        event.preventDefault();
-        const textoEscrito = inputNombre.value.trim();
-        if (!textoEscrito) return;
-
-        // Si aún no ha seleccionado pero hay una única coincidencia en el padrón, tomarla automáticamente
-        if (!colaboradorSeleccionado) {
-            const coincidencias = buscarCoincidencias(textoEscrito);
-            if (coincidencias.length === 1) {
-                colaboradorSeleccionado = coincidencias[0];
-            }
+            establecerSeleccion(persona, manual);
         }
 
-        const dt = obtenerFechaHoraActual();
-        let nombreFinal, servicioFinal, puestoFinal, jornadaFinal;
+        inputNombre.addEventListener("input", evaluarEntrada);
 
-        if (colaboradorSeleccionado) {
-            nombreFinal = colaboradorSeleccionado.nombre;
-            servicioFinal = colaboradorSeleccionado.servicio;
-            puestoFinal = colaboradorSeleccionado.puesto;
-            jornadaFinal = colaboradorSeleccionado.jornada;
-        } else {
-            // Datos de respaldo si es personal nuevo o cubriendo vacante
-            nombreFinal = textoEscrito.toUpperCase();
-            servicioFinal = document.getElementById("man-servicio").value;
-            puestoFinal = document.getElementById("man-puesto").value;
-            jornadaFinal = document.getElementById("man-jornada").value;
-        }
+        chkExtra.addEventListener("change", function () {
+            if (!chkExtra.checked) selExtra.selectedIndex = 0;
+            refrescarDetalle();
+            if (chkExtra.checked) selExtra.focus();
+        });
+        selExtra.addEventListener("change", refrescarDetalle);
 
-        // Guardar en el teléfono para facilitar el día siguiente
-        localStorage.setItem("asist_ultimo_nombre", nombreFinal);
-
-        let mensaje = "";
-
-        if (jornadaFinal === "24x24") {
-            // Formato para turno de 24 horas
-            mensaje = `*ASISTENCIA*\n\n` +
-                      `Colaborador: ${nombreFinal}\n\n` +
-                      `Fecha:${dt.fecha}\n` +
-                      `Hora: ${dt.hora24}\n\n` +
-                      `Servicio: ${servicioFinal}\n\n` +
-                      `Puesto: ${puestoFinal}\n\n` +
-                      `Jornada:24x24\n\n` +
-                      `Tipo: (no se modifica )`;
-        } else {
-            // Formato para turno de 12 horas
-            mensaje = `*ASISTENCIA*\n\n` +
-                      `Colaborador: ${nombreFinal}\n\n` +
-                      `Fecha ${dt.fecha}\n` +
-                      `Hora: ${dt.hora12}\n\n` +
-                      `Servicio: ${servicioFinal}\n\n` +
-                      `Puesto: ${puestoFinal}\n\n` +
-                      `Jornada: 12x12\n\n` +
-                      `Tipo: (no se modifica )`;
-        }
-
-        const urlApp = `whatsapp://send?text=${encodeURIComponent(mensaje)}`;
-        window.location.href = urlApp;
-    }
-
-    window.onload = function() {
-        actualizarReloj();
-        setInterval(actualizarReloj, 10000);
-
-        const guardado = localStorage.getItem("asist_ultimo_nombre");
-        if (guardado) {
-            inputNombre.value = guardado;
+        btnLimpiar.addEventListener("click", function () {
+            inputNombre.value = "";
+            localStorage.removeItem("asist_ultimo_nombre");
             evaluarEntrada();
+            inputNombre.focus();
+        });
+
+        function enviarAWhatsApp(event) {
+            event.preventDefault();
+
+            const dt = obtenerFechaHoraActual();
+            const datos = obtenerDatosEnvio(dt);
+
+            // Solo se envía con datos completos y sin ambigüedad (evita que Enter mande datos equivocados)
+            if (!datos) {
+                refrescarDetalle();
+                if (chkExtra.checked && !selExtra.value) selExtra.focus();
+                else inputNombre.focus();
+                return;
+            }
+
+            let mensaje = "";
+
+            if (datos.jornada === "24x24") {
+                // Formato para turno de 24 horas
+                mensaje = `*ASISTENCIA*\n\n` +
+                    `Colaborador: ${datos.nombre}\n\n` +
+                    `Fecha:${dt.fecha}\n` +
+                    `Hora: ${dt.hora24}\n\n` +
+                    `Servicio: ${datos.servicio}\n\n` +
+                    `Puesto: ${datos.puesto}\n\n` +
+                    `Jornada:24x24\n\n` +
+                    `Tipo: (no se modifica )`;
+            } else {
+                // Formato para turno de 12 horas
+                mensaje = `*ASISTENCIA*\n\n` +
+                    `Colaborador: ${datos.nombre}\n\n` +
+                    `Fecha ${dt.fecha}\n` +
+                    `Hora: ${dt.hora12}\n\n` +
+                    `Servicio: ${datos.servicio}\n\n` +
+                    `Puesto: ${datos.puesto}\n\n` +
+                    `Jornada: 12x12\n\n` +
+                    `Tipo: (no se modifica )`;
+            }
+
+            // Abrir WhatsApp con los datos
+            const urlApp = `whatsapp://send?text=${encodeURIComponent(mensaje)}`;
+            window.location.href = urlApp;
+
+            // Limpiar y resetear el formulario para que la siguiente persona no encuentre datos cargados
+            setTimeout(function () {
+                inputNombre.value = "";
+                chkExtra.checked = false;
+                establecerSeleccion(null, false);
+            }, 300);
         }
-    };
-</script>
+
+        // Verificar la hora en internet en cuanto abre la página
+        sincronizarHora();
+
+        window.onload = function () {
+            actualizarReloj();
+            setInterval(function () {
+                actualizarReloj();
+                refrescarDetalle();
+            }, 5000);
+
+            // Volver a verificar la hora periódicamente y al regresar a la página (ej. después de WhatsApp)
+            setInterval(sincronizarHora, 120000);
+            document.addEventListener("visibilitychange", function () {
+                if (!document.hidden) {
+                    sincronizarHora();
+                    // Al regresar de WhatsApp o cambiar de pestaña, asegurar que el formulario esté limpio
+                    inputNombre.value = "";
+                    chkExtra.checked = false;
+                    establecerSeleccion(null, false);
+                }
+            });
+        };
+    </script>
 
 </body>
+
 </html>
