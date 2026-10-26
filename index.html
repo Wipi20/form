@@ -408,13 +408,17 @@
                 <label class="switch-row" for="chk-extra">
                     <span>
                         Tiempo extra / cubrir turno
-                        <small>Actívalo si hoy trabajas en otra ubicación</small>
+                        <small>Actívalo si hoy trabajas en otra ubicación o jornada</small>
                     </span>
                     <input type="checkbox" id="chk-extra">
                     <span class="switch"></span>
                 </label>
                 <select id="extra-servicio">
                     <option value="" disabled selected>Selecciona el servicio donde estás...</option>
+                </select>
+                <select id="extra-jornada">
+                    <option value="12x12">Jornada Tiempo Extra: 12x12</option>
+                    <option value="24x24">Jornada Tiempo Extra: 24x24</option>
                 </select>
             </div>
 
@@ -453,12 +457,12 @@
             { nombre: "GRISELDA GUZMÁN AGUILAR", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
             { nombre: "KEILA ISABEL OJENDIZ QUIÑONES", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "APOYO NOCTURNO", jornada: "12x12" },
             { nombre: "PEDRO ALVARADO MACÍAS", servicio: "CLÍNICA SAN QUINTÍN", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-            { nombre: "FRANCISCO RAMON MONTES CORONA", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-            { nombre: "JESUS FERNANDO BARRIGA CABRERA", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "12x12" },
+            { nombre: "FRANCISCO RAMON MONTES CORONA", servicio: "ALMACÉN MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
+            { nombre: "JESUS FERNANDO BARRIGA CABRERA", servicio: "ALMACÉN MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "12x12" },
             { nombre: "HUMBERTO OCHOA COSSIO", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
             { nombre: "ANA MARIA GUADALUPE MORALES HERNANDEZ", servicio: "UNIDAD VALLE DE MEXICALI ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
             { nombre: "AIDA JAZMÍN HERNÁNDEZ SANCHEZ", servicio: "UNIDAD VALLE DE MEXICALI ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
-            { nombre: "EULALIO RAMOS RIVERA", servicio: "CLÍNICA MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
+            { nombre: "EULALIO RAMOS RIVERA", servicio: "ALMACÉN MEXICALI", puesto: "ACCESO PRINCIPAL", turno: "DIURNO", jornada: "12x12" },
             { nombre: "VICTOR ALFONSO OROZCO JUAREZ", servicio: "SUPERVISOR MEXICALI", puesto: "SUPERVISOR", turno: "DIURNO", jornada: "12x12" },
             { nombre: "SONIA VALDEZ RIVERA", servicio: "UNIDAD VALLE DE MEXICALI ", puesto: "ACCESO PRINCIPAL", turno: "NOCTURNO", jornada: "12x12" },
             { nombre: "RAMON FRANCISCO MARQUEZ ZAVALA", servicio: "BENITO JUÁREZ", puesto: "ACCESO PRINCIPAL", turno: "MIXTO", jornada: "24x24" },
@@ -486,7 +490,7 @@
             "CLÍNICA MANEADERO",
             "CLÍNICA PRIMO TAPIA",
             "CLÍNICA SAN QUINTÍN",
-            "CLÍNICA MEXICALI",
+            "ALMACÉN MEXICALI",
             "BENITO JUÁREZ",
             "UNIDAD VALLE DE MEXICALI ",
             "CONSTRUCCIÓN VIOLETA",
@@ -704,6 +708,7 @@
         const cajaExtra = document.getElementById("caja-extra");
         const chkExtra = document.getElementById("chk-extra");
         const selExtra = document.getElementById("extra-servicio");
+        const selExtraJornada = document.getElementById("extra-jornada");
         const selManServicio = document.getElementById("man-servicio");
         const btnCheckLado = document.getElementById("btn-check-lado");
         const btnEnviarAbajo = document.getElementById("btn-enviar-abajo");
@@ -743,15 +748,17 @@
                 // Si es supervisor no aplica tiempo extra
                 const servicio = (!esSupervisor(p) && servicioExtra) ? servicioExtra : servicioDelDia(p, dt.diaSemana);
                 if (!servicio) return null; // cubre turnos sin turno hoy y sin tiempo extra
-                return { nombre: p.nombre, servicio: formatearServicio(p, servicio), puesto: p.puesto, jornada: p.jornada };
+                const jornada = (!esSupervisor(p) && chkExtra.checked) ? selExtraJornada.value : p.jornada;
+                return { nombre: p.nombre, servicio: formatearServicio(p, servicio), puesto: p.puesto, jornada: jornada };
             }
 
             if (modoManual) {
+                const jornada = chkExtra.checked ? selExtraJornada.value : document.getElementById("man-jornada").value;
                 return {
                     nombre: inputNombre.value.trim().toUpperCase(),
                     servicio: servicioExtra || selManServicio.value,
                     puesto: document.getElementById("man-puesto").value,
-                    jornada: document.getElementById("man-jornada").value
+                    jornada: jornada
                 };
             }
 
@@ -771,6 +778,7 @@
 
             cajaExtra.style.display = mostrarTiempoExtra ? "block" : "none";
             selExtra.style.display = (mostrarTiempoExtra && chkExtra.checked) ? "block" : "none";
+            selExtraJornada.style.display = (mostrarTiempoExtra && chkExtra.checked) ? "block" : "none";
             cajaAviso.style.display = "none";
 
             const servicioExtra = chkExtra.checked ? selExtra.value : "";
@@ -786,11 +794,13 @@
                     servicioMostrar = base ? formatearServicio(p, base) : "Sin turno asignado hoy";
                 }
 
+                const jornadaMostrar = chkExtra.checked ? selExtraJornada.value : p.jornada;
+
                 document.getElementById("prev-nombre").textContent = p.nombre;
                 document.getElementById("prev-servicio").textContent = servicioMostrar;
                 document.getElementById("prev-extra").style.display = (chkExtra.checked && servicioExtra) ? "inline-block" : "none";
                 document.getElementById("prev-puesto").textContent = p.puesto;
-                document.getElementById("prev-jornada").textContent = p.jornada;
+                document.getElementById("prev-jornada").textContent = jornadaMostrar;
                 //document.getElementById("prev-turno").textContent = p.turno;
 
                 if (p.rotacion && !base && !chkExtra.checked) {
@@ -820,6 +830,11 @@
             if (clave !== claveSeleccion) {
                 chkExtra.checked = false;
                 selExtra.selectedIndex = 0;
+                if (persona && persona.jornada) {
+                    selExtraJornada.value = persona.jornada;
+                } else {
+                    selExtraJornada.value = "12x12";
+                }
                 claveSeleccion = clave;
             }
             colaboradorSeleccionado = persona;
@@ -884,11 +899,16 @@
         inputNombre.addEventListener("input", evaluarEntrada);
 
         chkExtra.addEventListener("change", function () {
-            if (!chkExtra.checked) selExtra.selectedIndex = 0;
+            if (!chkExtra.checked) {
+                selExtra.selectedIndex = 0;
+            } else if (colaboradorSeleccionado && colaboradorSeleccionado.jornada) {
+                selExtraJornada.value = colaboradorSeleccionado.jornada;
+            }
             refrescarDetalle();
             if (chkExtra.checked) selExtra.focus();
         });
         selExtra.addEventListener("change", refrescarDetalle);
+        selExtraJornada.addEventListener("change", refrescarDetalle);
 
         btnLimpiar.addEventListener("click", function () {
             inputNombre.value = "";
@@ -917,17 +937,17 @@
                 // Formato para turno de 24 horas
                 mensaje = `*ASISTENCIA*\n\n` +
                     `Colaborador: ${datos.nombre}\n\n` +
-                    `Fecha:${dt.fecha}\n` +
+                    `Fecha: ${dt.fecha}\n` +
                     `Hora: ${dt.hora24}\n\n` +
                     `Servicio: ${datos.servicio}\n\n` +
                     `Puesto: ${datos.puesto}\n\n` +
-                    `Jornada:24x24\n\n` +
+                    `Jornada: 24x24\n\n` +
                     `Tipo: (no se modifica )`;
             } else {
                 // Formato para turno de 12 horas
                 mensaje = `*ASISTENCIA*\n\n` +
                     `Colaborador: ${datos.nombre}\n\n` +
-                    `Fecha ${dt.fecha}\n` +
+                    `Fecha: ${dt.fecha}\n` +
                     `Hora: ${dt.hora12}\n\n` +
                     `Servicio: ${datos.servicio}\n\n` +
                     `Puesto: ${datos.puesto}\n\n` +
